@@ -83,6 +83,21 @@
   .stat .num{font-size:clamp(1.7rem,5vw,2.4rem); font-weight:900; color:var(--green-deep); line-height:1.1;}
   .stat .lab{color:var(--ink-soft); font-size:.92rem; font-weight:600;}
 
+  /* ---------- Flags band ---------- */
+  .flagsband{
+    max-width:820px; margin:16px auto 0; display:grid; grid-template-columns:1fr 1fr; gap:14px;
+  }
+  .flagcard{
+    background:#fff; border:2px solid var(--line); border-radius:var(--radius); box-shadow:var(--shadow);
+    padding:20px 14px; display:flex; flex-direction:column; align-items:center; gap:2px;
+    transition:transform .18s ease, box-shadow .18s ease;
+  }
+  .flagcard:hover{transform:translateY(-4px); box-shadow:var(--shadow-lift);}
+  .flagcard .bigflag{font-size:3.2rem; line-height:1.15;}
+  .flagcard .flagname{font-weight:900; font-size:1.12rem; color:var(--ink);}
+  .flagcard .flagcode{font-weight:800; color:var(--green-deep); letter-spacing:.14em; font-size:.9rem;}
+  .flags-line .fl{font-size:1.6rem;}
+
   /* ---------- Cards / steps ---------- */
   .grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:18px;}
   .card{background:var(--card); border-radius:var(--radius); padding:26px 24px; box-shadow:var(--shadow); transition:transform .18s ease, box-shadow .18s ease;}
@@ -236,6 +251,10 @@
       <div class="stat"><div class="num">3</div><div class="lab" data-i18n="stat1_l">websites live</div></div>
       <div class="stat"><div class="num">2</div><div class="lab" data-i18n="stat2_l">countries served 🇬🇧 🇯🇵</div></div>
       <div class="stat"><div class="num">100%</div><div class="lab" data-i18n="stat3_l">free, forever</div></div>
+    </div>
+    <div class="flagsband" aria-label="Countries we serve">
+      <div class="flagcard"><span class="bigflag" aria-hidden="true">🇬🇧</span><span class="flagname" data-i18n="flags_gb">United Kingdom</span><span class="flagcode">GB</span></div>
+      <div class="flagcard"><span class="bigflag" aria-hidden="true">🇯🇵</span><span class="flagname" data-i18n="flags_jp">Japan</span><span class="flagcode">JP</span></div>
     </div>
   </div>
 </header>
@@ -479,7 +498,7 @@ en: {
   terms_h:"Fair & simple terms", terms_sub:"The short version, in plain words. The full version is one click away.",
   t1:"Your one-page website is free — a goodwill service, with no charge, ever.", t2:"You own your content, and you approve your page before anything goes live.", t3:"Your page is hosted free by GitHub, on our account, and provided “as is” — we can't promise uptime, visitors or sales.", t4:"Ask us anytime for a copy of your files, or to take your page down.", terms_btn:"Read the full Terms & Conditions",
   cta_h:"Ready to grow online?", cta_p:"Send us an email and tell us a little about your business. We'll reply with the short form, and your free page will be on its way.", cta_btn:"Email Helpy — it's free",
-  foot_tag:"We help you grow online.", foot_contact:"Contact:", foot_terms:"Terms & Conditions", foot_made:"Made with goodwill."
+  flags_gb:"United Kingdom", flags_jp:"Japan", foot_tag:"We help you grow online.", foot_contact:"Contact:", foot_terms:"Terms & Conditions", foot_made:"Made with goodwill."
 },
 mr: {
   nav_what:"आम्ही काय करतो", nav_how:"हे कसे चालते", nav_work:"आमचे काम", nav_faq:"प्रश्न",
@@ -518,7 +537,7 @@ mr: {
   terms_h:"न्याय्य आणि सोप्या अटी", terms_sub:"थोडक्यात, सोप्या शब्दांत. पूर्ण आवृत्ती एका क्लिकवर.",
   t1:"तुमची एक-पानाची वेबसाइट मोफत आहे — सद्भावना सेवा, कोणतेही शुल्क नाही, कधीच.", t2:"तुमची सामग्री तुमचीच आहे, आणि काहीही लाइव्ह होण्यापूर्वी तुम्ही तुमच्या पानाला मान्यता देता.", t3:"तुमचे पान GitHub कडून आमच्या खात्यावर मोफत ठेवले जाते आणि “जसे आहे तसे” दिले जाते — आम्ही अपटाइम, भेटी किंवा विक्रीचे वचन देऊ शकत नाही.", t4:"तुमच्या फाइलची प्रत किंवा पान बंद करण्यासाठी कधीही विचारा.", terms_btn:"पूर्ण अटी व शर्ती वाचा",
   cta_h:"ऑनलाइन वाढायला तयार आहात?", cta_p:"आम्हाला ईमेल पाठवा आणि तुमच्या व्यवसायाबद्दल थोडी माहिती सांगा. आम्ही छोट्या फॉर्मसह उत्तर देऊ, आणि तुमचे मोफत पान वाटेवर असेल.", cta_btn:"Helpy ला ईमेल करा — हे मोफत आहे",
-  foot_tag:"आम्ही तुम्हाला ऑनलाइन वाढायला मदत करतो.", foot_contact:"संपर्क:", foot_terms:"अटी व शर्ती", foot_made:"सद्भावनेने बनवले."
+  flags_gb:"युनायटेड किंगडम", flags_jp:"जपान", foot_tag:"आम्ही तुम्हाला ऑनलाइन वाढायला मदत करतो.", foot_contact:"संपर्क:", foot_terms:"अटी व शर्ती", foot_made:"सद्भावनेने बनवले."
 },
 hi: {
   nav_what:"हम क्या करते हैं", nav_how:"यह कैसे काम करता है", nav_work:"हमारा काम", nav_faq:"सवाल",
@@ -557,7 +576,7 @@ hi: {
   terms_h:"उचित और सरल शर्तें", terms_sub:"संक्षेप में, आसान शब्दों में। पूरा संस्करण एक क्लिक दूर है।",
   t1:"आपकी एक-पेज वेबसाइट मुफ़्त है — एक सद्भावना सेवा, कोई शुल्क नहीं, कभी नहीं।", t2:"आपकी सामग्री आपकी है, और कुछ भी लाइव होने से पहले आप अपने पेज को मंज़ूरी देते हैं।", t3:"आपका पेज GitHub द्वारा हमारे खाते पर मुफ़्त रखा जाता है और “जैसा है वैसा” दिया जाता है — हम अपटाइम, आगंतुकों या बिक्री का वादा नहीं कर सकते।", t4:"अपनी फ़ाइलों की प्रति या पेज बंद करने के लिए कभी भी पूछें।", terms_btn:"पूरी नियम व शर्तें पढ़ें",
   cta_h:"ऑनलाइन बढ़ने के लिए तैयार हैं?", cta_p:"हमें एक ईमेल भेजें और अपने व्यवसाय के बारे में थोड़ा बताएं। हम छोटे फ़ॉर्म के साथ जवाब देंगे, और आपका मुफ़्त पेज रास्ते पर होगा।", cta_btn:"Helpy को ईमेल करें — यह मुफ़्त है",
-  foot_tag:"हम आपको ऑनलाइन बढ़ने में मदद करते हैं।", foot_contact:"संपर्क:", foot_terms:"नियम व शर्तें", foot_made:"सद्भावना से बनाया गया।"
+  flags_gb:"यूनाइटेड किंगडम", flags_jp:"जापान", foot_tag:"हम आपको ऑनलाइन बढ़ने में मदद करते हैं।", foot_contact:"संपर्क:", foot_terms:"नियम व शर्तें", foot_made:"सद्भावना से बनाया गया।"
 },
 ja: {
   nav_what:"サービス内容", nav_how:"ご利用の流れ", nav_work:"制作実績", nav_faq:"よくある質問",
@@ -596,7 +615,7 @@ ja: {
   terms_h:"公平でシンプルな規約", terms_sub:"短い版を、やさしい言葉で。全文はワンクリックで読めます。",
   t1:"あなたの1ページウェブサイトは無料です — 善意のサービスで、料金は一切ありません。", t2:"コンテンツはあなたのもので、公開前にあなたがページを承認します。", t3:"ページはGitHubにより私たちのアカウントで無料公開され、「現状のまま」提供されます — 稼働率、訪問者数、売上はお約束できません。", t4:"ファイルのコピーやページの削除はいつでもご依頼ください。", terms_btn:"利用規約の全文を読む",
   cta_h:"オンラインで成長する準備はできましたか？", cta_p:"メールであなたのビジネスについて少し教えてください。短いフォームとともに返信し、あなたの無料ページが動き出します。", cta_btn:"Helpyにメール — 無料です",
-  foot_tag:"オンラインでの成長をお手伝いします。", foot_contact:"お問い合わせ:", foot_terms:"利用規約", foot_made:"善意を込めて作りました。"
+  flags_gb:"イギリス", flags_jp:"日本", foot_tag:"オンラインでの成長をお手伝いします。", foot_contact:"お問い合わせ:", foot_terms:"利用規約", foot_made:"善意を込めて作りました。"
 }
 };
 var TITLES = { en:"Helpy — We help you grow online", mr:"Helpy — आम्ही तुम्हाला ऑनलाइन वाढायला मदत करतो", hi:"Helpy — हम आपको ऑनलाइन बढ़ने में मदद करते हैं", ja:"Helpy — オンラインでの成長をお手伝いします" };
