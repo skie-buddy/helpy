@@ -11,6 +11,7 @@
     --blue:#2f7fd0; --blue-deep:#1565c0; --card:#ffffff; --line:#cfe9db;
     --chip:#e9f7f0; --accent:#ff8fab;
     --radius:24px; --shadow:0 10px 30px rgba(18,113,75,.13);
+    --shadow-lift:0 20px 42px rgba(18,113,75,.22);
   }
   *{box-sizing:border-box; margin:0; padding:0;}
   html{scroll-behavior:smooth;}
@@ -24,17 +25,44 @@
   a{color:var(--blue-deep);}
   h1,h2,h3{line-height:1.2; letter-spacing:-.01em;}
   h2{font-size:clamp(1.6rem,4.5vw,2.3rem); margin-bottom:.4em; text-align:center;}
-  .section-sub{text-align:center; color:var(--ink-soft); max-width:640px; margin:0 auto 2rem;}
+  .section-sub{text-align:center; color:var(--ink-soft); max-width:660px; margin:0 auto 2rem;}
   section{padding:64px 0 8px;}
 
+  /* ---------- Top bar ---------- */
+  .topbar{
+    position:sticky; top:0; z-index:50;
+    background:rgba(255,255,255,.9); backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .topbar-in{max-width:1060px; margin:0 auto; padding:10px 20px; display:flex; align-items:center; gap:16px;}
+  .brand{display:flex; align-items:center; gap:9px; font-weight:900; font-size:1.2rem; color:var(--ink); text-decoration:none;}
+  .brand svg{width:30px; height:30px;}
+  .topnav{margin-left:auto; display:flex; gap:18px; align-items:center; flex-wrap:wrap;}
+  .topnav a.navlink{color:var(--ink-soft); text-decoration:none; font-weight:600; font-size:.95rem;}
+  .topnav a.navlink:hover{color:var(--green-deep);}
+  .langsel{
+    font:inherit; font-size:.92rem; font-weight:700; color:var(--green-deep);
+    background:var(--chip); border:1px solid var(--line); border-radius:999px; padding:7px 12px; cursor:pointer;
+  }
+  @media (max-width:720px){ .topnav a.navlink{display:none;} }
+
   /* ---------- Hero ---------- */
-  header.hero{padding:64px 0 24px; text-align:center;}
+  header.hero{padding:58px 0 24px; text-align:center; position:relative; overflow:hidden;}
+  header.hero::before, header.hero::after{
+    content:""; position:absolute; border-radius:50%; filter:blur(60px); opacity:.5; z-index:0;
+  }
+  header.hero::before{width:340px; height:340px; background:#9fe8c3; top:-120px; left:-80px; animation:drift 11s ease-in-out infinite alternate;}
+  header.hero::after{width:300px; height:300px; background:#a9d6ff; bottom:-140px; right:-60px; animation:drift 13s ease-in-out infinite alternate-reverse;}
+  @keyframes drift{from{transform:translate(0,0) scale(1);} to{transform:translate(34px,22px) scale(1.08);}}
+  .hero .wrap{position:relative; z-index:1;}
   .hero .logo{width:min(120px,32vw); height:auto;}
   .hero h1{font-size:clamp(3rem,11vw,5.2rem); font-weight:900; color:var(--ink);}
   .hero h1 .dot{color:var(--green);}
   .tagline{font-size:clamp(1.2rem,4.5vw,1.6rem); font-weight:700; color:var(--green-deep); margin-top:2px;}
   .promise{max-width:620px; margin:14px auto 0; color:var(--ink-soft); font-size:1.08rem;}
-  .cta{margin-top:28px; display:flex; flex-direction:column; align-items:center; gap:10px;}
+  .flags-line{margin-top:16px; font-weight:700; color:var(--ink); font-size:1.02rem;}
+  .flags-line .fl{font-size:1.3rem; vertical-align:-2px;}
+  .cta{margin-top:26px; display:flex; flex-direction:column; align-items:center; gap:10px;}
   .btn-main{
     display:inline-block; background:var(--green-deep); color:#fff; text-decoration:none;
     font-weight:800; font-size:1.15rem; padding:16px 38px; border-radius:999px;
@@ -46,14 +74,25 @@
   .chip{background:rgba(255,255,255,.85); border:1px solid var(--line); color:var(--ink-soft);
     padding:6px 14px; border-radius:999px; font-size:.88rem; font-weight:600;}
 
+  /* ---------- Stats ---------- */
+  .stats{
+    max-width:820px; margin:34px auto 0; background:rgba(255,255,255,.85); border:1px solid var(--line);
+    border-radius:var(--radius); box-shadow:var(--shadow); padding:22px 18px;
+    display:grid; grid-template-columns:repeat(3,1fr); gap:12px; text-align:center;
+  }
+  .stat .num{font-size:clamp(1.7rem,5vw,2.4rem); font-weight:900; color:var(--green-deep); line-height:1.1;}
+  .stat .lab{color:var(--ink-soft); font-size:.92rem; font-weight:600;}
+
   /* ---------- Cards / steps ---------- */
   .grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:18px;}
-  .card{background:var(--card); border-radius:var(--radius); padding:26px 24px; box-shadow:var(--shadow);}
+  .card{background:var(--card); border-radius:var(--radius); padding:26px 24px; box-shadow:var(--shadow); transition:transform .18s ease, box-shadow .18s ease;}
+  .card:hover{transform:translateY(-5px); box-shadow:var(--shadow-lift);}
   .card .icon{font-size:1.9rem; line-height:1; margin-bottom:12px;}
   .card h3{font-size:1.12rem; margin-bottom:6px;}
   .card p{color:var(--ink-soft); font-size:.97rem;}
   .steps{display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:18px;}
-  .step{background:var(--card); border-radius:var(--radius); padding:26px 24px; box-shadow:var(--shadow);}
+  .step{background:var(--card); border-radius:var(--radius); padding:26px 24px; box-shadow:var(--shadow); transition:transform .18s ease, box-shadow .18s ease;}
+  .step:hover{transform:translateY(-5px); box-shadow:var(--shadow-lift);}
   .step .num{
     width:38px; height:38px; border-radius:50%; background:var(--green-deep); color:#fff;
     display:flex; align-items:center; justify-content:center; font-weight:800; margin-bottom:12px;
@@ -61,7 +100,7 @@
   .step h3{font-size:1.08rem; margin-bottom:6px;}
   .step p{color:var(--ink-soft); font-size:.97rem;}
 
-  /* ---------- Example ---------- */
+  /* ---------- Example / work ---------- */
   .example-card{
     background:var(--card); border-radius:var(--radius); box-shadow:var(--shadow);
     padding:38px 30px; text-align:center; max-width:760px; margin:0 auto;
@@ -77,7 +116,7 @@
   .btn-blue:hover,.btn-blue:focus{transform:translateY(-2px); box-shadow:0 14px 28px rgba(21,101,192,.38);}
   .honest-note{text-align:center; color:var(--ink-soft); font-size:.95rem; margin-top:18px;}
 
-  /* ---------- Free / support / terms-summary cards ---------- */
+  /* ---------- Wide cards ---------- */
   .wide-card{
     background:var(--card); border-radius:var(--radius); box-shadow:var(--shadow);
     padding:38px 30px; text-align:center; max-width:760px; margin:0 auto;
@@ -98,6 +137,20 @@
     color:#fff; font-size:.85rem; font-weight:800; display:flex; align-items:center; justify-content:center; margin-top:2px;
   }
 
+  /* ---------- FAQ ---------- */
+  .faq{max-width:760px; margin:0 auto; display:grid; gap:12px;}
+  .faq details{
+    background:var(--card); border-radius:18px; box-shadow:var(--shadow); padding:6px 24px;
+  }
+  .faq summary{
+    cursor:pointer; font-weight:800; font-size:1.05rem; padding:16px 0; list-style:none;
+    display:flex; justify-content:space-between; align-items:center; gap:12px;
+  }
+  .faq summary::-webkit-details-marker{display:none;}
+  .faq summary::after{content:"+"; color:var(--green-deep); font-size:1.5rem; font-weight:900; transition:transform .2s ease;}
+  .faq details[open ] summary::after{transform:rotate(45deg);}
+  .faq details p{color:var(--ink-soft); padding:0 0 18px;}
+
   /* ---------- Terms summary ---------- */
   .terms-list{max-width:640px; margin:0 auto 22px; text-align:left; display:grid; gap:10px;}
   .terms-list li{list-style:none; display:flex; gap:10px; color:var(--ink-soft); font-size:.99rem;}
@@ -109,16 +162,54 @@
   }
   .btn-outline:hover,.btn-outline:focus{background:var(--green-deep); color:#fff;}
 
+  /* ---------- Reveal on scroll ---------- */
+  .reveal{opacity:0; transform:translateY(22px); transition:opacity .6s ease, transform .6s ease;}
+  .reveal.in{opacity:1; transform:none;}
+
+  /* ---------- Back to top ---------- */
+  #toTop{
+    position:fixed; right:18px; bottom:18px; z-index:60; width:48px; height:48px; border-radius:50%;
+    border:none; background:var(--green-deep); color:#fff; font-size:1.25rem; cursor:pointer;
+    box-shadow:0 10px 24px rgba(18,113,75,.4); opacity:0; pointer-events:none; transition:opacity .25s ease, transform .15s ease;
+  }
+  #toTop.show{opacity:1; pointer-events:auto;}
+  #toTop:hover{transform:translateY(-3px);}
+
   footer{padding:56px 0 40px; text-align:center; color:var(--ink-soft);}
   footer .fname{font-weight:900; color:var(--ink); font-size:1.25rem;}
   footer .ftag{font-weight:700; color:var(--green-deep);}
   footer p{margin-top:6px; font-size:.97rem;}
-  @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto;} }
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    .reveal{opacity:1; transform:none; transition:none;}
+    header.hero::before, header.hero::after{animation:none;}
+  }
 </style>
 </head>
 <body>
 
-<header class="hero">
+<div class="topbar">
+  <div class="topbar-in">
+    <a class="brand" href="#top" aria-label="Helpy home">
+      <svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="56" fill="#12714b"/><path d="M60 96 V58" stroke="#ffffff" stroke-width="7" stroke-linecap="round" fill="none"/><path d="M60 64 C44 64 33 54 32 39 C47 39 58 48 60 64 Z" fill="#8fe3bb"/><path d="M60 52 C75 52 85 44 87 29 C72 29 62 37 60 52 Z" fill="#c9f5de"/></svg>
+      Helpy
+    </a>
+    <nav class="topnav" aria-label="Sections">
+      <a class="navlink" href="#what" data-i18n="nav_what">What we do</a>
+      <a class="navlink" href="#how" data-i18n="nav_how">How it works</a>
+      <a class="navlink" href="#work" data-i18n="nav_work">Our work</a>
+      <a class="navlink" href="#faq" data-i18n="nav_faq">FAQ</a>
+      <select class="langsel" id="langSel" aria-label="Language / भाषा / 言語">
+        <option value="en">🌐 English</option>
+        <option value="mr">🌐 मराठी</option>
+        <option value="hi">🌐 हिन्दी</option>
+        <option value="ja">🌐 日本語</option>
+      </select>
+    </nav>
+  </div>
+</div>
+
+<header class="hero" id="top">
   <div class="wrap">
     <!-- Helpy logo: a young sprout, growing -->
     <svg class="logo" viewBox="0 0 120 120" role="img" aria-label="Helpy logo, a small green sprout">
@@ -128,17 +219,23 @@
       <path d="M60 52 C75 52 85 44 87 29 C72 29 62 37 60 52 Z" fill="#c9f5de"/>
     </svg>
     <h1>Helpy<span class="dot">.</span></h1>
-    <p class="tagline">We help you grow online.</p>
-    <p class="promise">We create <strong>free one-page websites for small businesses</strong> — completely free, as a goodwill service, and always online. One clean page with your story, your services and your contact buttons, so new customers can find you and reach you.</p>
+    <p class="tagline" data-i18n="hero_tagline">We help you grow online.</p>
+    <p class="promise" data-i18n="hero_promise">We create <strong>free one-page websites for small businesses</strong> — completely free, as a goodwill service, and always online. One clean page with your story, your services and your contact buttons, so new customers can find you and reach you.</p>
+    <p class="flags-line" data-i18n="hero_flags">Now making websites for clients in the <span class="fl">🇬🇧</span> United Kingdom and <span class="fl">🇯🇵</span> Japan</p>
     <div class="cta">
-      <a class="btn-main" href="https://skie-buddy.github.io/">See an example we made</a>
-      <a class="alt-link" href="./terms.html">Read our Terms</a>
+      <a class="btn-main" href="#work" data-i18n="hero_cta1">See our work</a>
+      <a class="alt-link" href="./terms.html" data-i18n="hero_cta2">Read our Terms</a>
     </div>
     <div class="chips" aria-label="Good to know">
-      <span class="chip">100% free</span>
-      <span class="chip">No hidden charges</span>
-      <span class="chip">Always online</span>
-      <span class="chip">You approve before it goes live</span>
+      <span class="chip" data-i18n="chip1">100% free</span>
+      <span class="chip" data-i18n="chip2">No hidden charges</span>
+      <span class="chip" data-i18n="chip3">Always online</span>
+      <span class="chip" data-i18n="chip4">You approve before it goes live</span>
+    </div>
+    <div class="stats" aria-label="Helpy in numbers">
+      <div class="stat"><div class="num">3</div><div class="lab" data-i18n="stat1_l">websites live</div></div>
+      <div class="stat"><div class="num">2</div><div class="lab" data-i18n="stat2_l">countries served 🇬🇧 🇯🇵</div></div>
+      <div class="stat"><div class="num">100%</div><div class="lab" data-i18n="stat3_l">free, forever</div></div>
     </div>
   </div>
 </header>
@@ -146,29 +243,29 @@
 <main>
   <!-- ============ What we do ============ -->
   <section id="what" aria-labelledby="what-h">
-    <div class="wrap">
-      <h2 id="what-h">What we do</h2>
-      <p class="section-sub">One free static one-page website for your business — simple, friendly, and built around what your customers need to know.</p>
+    <div class="wrap reveal">
+      <h2 id="what-h" data-i18n="what_h">What we do</h2>
+      <p class="section-sub" data-i18n="what_sub">One free static one-page website for your business — simple, friendly, and built around what your customers need to know.</p>
       <div class="grid">
         <div class="card">
           <div class="icon" aria-hidden="true">🌐</div>
-          <h3>One page, all about you</h3>
-          <p>Your business name, your story, your services and your opening hours — one clean page that looks great on phones and computers alike.</p>
+          <h3 data-i18n="w1t">One page, all about you</h3>
+          <p data-i18n="w1p">Your business name, your story, your services and your opening hours — one clean page that looks great on phones and computers alike.</p>
         </div>
         <div class="card">
           <div class="icon" aria-hidden="true">📞</div>
-          <h3>Buttons that bring customers</h3>
-          <p>Tap-to-call and WhatsApp buttons, plus a directions link to your door, so a visitor can reach you in one tap.</p>
+          <h3 data-i18n="w2t">Buttons that bring customers</h3>
+          <p data-i18n="w2p">Tap-to-call and email buttons, so a visitor can reach you in one tap.</p>
         </div>
         <div class="card">
           <div class="icon" aria-hidden="true">☁️</div>
-          <h3>Hosted free, always online</h3>
-          <p>Your page is hosted free via GitHub Pages, so it stays online day and night — no hosting bills for you, ever.</p>
+          <h3 data-i18n="w3t">Hosted free, always online</h3>
+          <p data-i18n="w3p">Your page is hosted free via GitHub Pages, so it stays online day and night — no hosting bills for you, ever.</p>
         </div>
         <div class="card">
           <div class="icon" aria-hidden="true">👀</div>
-          <h3>You approve it first</h3>
-          <p>We send you a private preview before anything is published. Your page goes live only when you say yes.</p>
+          <h3 data-i18n="w4t">You approve it first</h3>
+          <p data-i18n="w4p">We send you a preview before anything is final. Your page is yours — and we adjust what you ask us to adjust.</p>
         </div>
       </div>
     </div>
@@ -176,29 +273,29 @@
 
   <!-- ============ How it works ============ -->
   <section id="how" aria-labelledby="how-h">
-    <div class="wrap">
-      <h2 id="how-h">How it works</h2>
-      <p class="section-sub">Four easy steps, all by email. No meetings, no jargon, no pressure.</p>
+    <div class="wrap reveal">
+      <h2 id="how-h" data-i18n="how_h">How it works</h2>
+      <p class="section-sub" data-i18n="how_sub">Four easy steps, all by email. No meetings, no jargon, no pressure.</p>
       <div class="steps">
         <div class="step">
           <div class="num">1</div>
-          <h3>Say hello</h3>
-          <p>Reply to our email or contact us at <a href="mailto:helpy-sb@proton.me">helpy-sb@proton.me</a> and tell us a little about your business.</p>
+          <h3 data-i18n="s1t">Say hello</h3>
+          <p data-i18n="s1p">Reply to our email or contact us at <a href="mailto:helpy-sb@proton.me">helpy-sb@proton.me</a> and tell us a little about your business.</p>
         </div>
         <div class="step">
           <div class="num">2</div>
-          <h3>Fill a short form</h3>
-          <p>We send you a short form: your business details, plus how you want your page to look — style, colours, and what matters most to you.</p>
+          <h3 data-i18n="s2t">Fill a short form</h3>
+          <p data-i18n="s2p">We send you a short form: your business details, plus how you want your page to look — style, colours, and what matters most to you.</p>
         </div>
         <div class="step">
           <div class="num">3</div>
-          <h3>We build it — you approve</h3>
-          <p>We build your page and send you a private preview. Nothing goes public without your OK, and we adjust what you ask us to adjust.</p>
+          <h3 data-i18n="s3t">We build it — you approve</h3>
+          <p data-i18n="s3p">We build your page and send you a preview. Nothing is final without your OK, and we adjust what you ask us to adjust.</p>
         </div>
         <div class="step">
           <div class="num">4</div>
-          <h3>Your page is live</h3>
-          <p>Share your link everywhere — social media, receipts, your shop window. Ask us anytime for small updates, or for a copy of your files.</p>
+          <h3 data-i18n="s4t">Your page is live</h3>
+          <p data-i18n="s4p">Share your link everywhere — social media, receipts, your shop window. Ask us anytime for small updates, or for a copy of your files.</p>
         </div>
       </div>
     </div>
@@ -206,9 +303,9 @@
 
   <!-- ============ Our work ============ -->
   <section id="work" aria-labelledby="work-h">
-    <div class="wrap">
-      <h2 id="work-h">Our work</h2>
-      <p class="section-sub">We have now made websites for clients in <strong>Japan 🇯🇵</strong> and the <strong>United Kingdom 🇬🇧</strong> — real work, really live. Go and see for yourself.</p>
+    <div class="wrap reveal">
+      <h2 id="work-h" data-i18n="work_h">Our work</h2>
+      <p class="section-sub" data-i18n="work_sub">We have now made websites for clients in <strong>Japan 🇯🇵</strong> and the <strong>United Kingdom 🇬🇧</strong> — real work, really live. Go and see for yourself.</p>
       <div class="example-card">
         <!-- Skie, the cloud buddy -->
         <svg viewBox="0 0 220 170" role="img" aria-label="Skie, a smiling cloud buddy holding a small heart">
@@ -223,72 +320,109 @@
           <circle cx="150" cy="106" r="8" fill="#ffd3de"/>
           <path d="M186 30 c-4-8-18-8-20 2 c-1 6 4 12 12 18 c1 1 3 1 4 0 c8-6 13-12 12-18 c0-4-3-6-8-2z" fill="#ff8fab" transform="translate(-6,6) scale(0.9)"/>
         </svg>
-        <h3>Skie — a free weather-buddy app</h3>
-        <p>Skie checks the weather every morning and tells you what to carry — an umbrella, a sweater, some water. We built Skie's website and its app download page in a single day, with the same free tools we offer you.</p>
-        <a class="btn-blue" href="https://skie-buddy.github.io/">Visit the Skie website</a>
+        <h3 data-i18n="skie_t">Skie — a free weather-buddy app</h3>
+        <p data-i18n="skie_p">Skie checks the weather every morning and tells you what to carry — an umbrella, a sweater, some water. We built Skie's website and its app download page with the same free tools we offer you.</p>
+        <a class="btn-blue" href="https://skie-buddy.github.io/" data-i18n="skie_btn">Visit the Skie website</a>
       </div>
       <div class="grid" style="margin-top:18px;">
         <div class="card">
           <div class="icon" aria-hidden="true">🇬🇧</div>
-          <h3>Nikki Pascall Tuition — Audlem, UK</h3>
-          <p>A warm, friendly one-page website for a private tutor in Audlem, Cheshire — SATs, GCSE and 11+ tuition, plus flute &amp; piano lessons, opening hours, and Book / Enquire call and email buttons.</p>
-          <p style="margin-top:14px;"><a class="btn-blue" href="https://skie-buddy.github.io/nikki-pascall-audlem-tuition/">Visit the website</a></p>
+          <h3 data-i18n="nikki_t">Nikki Pascall Tuition — Audlem, UK</h3>
+          <p data-i18n="nikki_p">A warm, friendly one-page website for a private tutor in Audlem, Cheshire — SATs, GCSE and 11+ tuition, plus flute &amp; piano lessons, opening hours, and Book / Enquire call and email buttons.</p>
+          <p style="margin-top:14px;"><a class="btn-blue" href="https://skie-buddy.github.io/nikki-pascall-audlem-tuition/" data-i18n="work_btn">Visit the website</a></p>
         </div>
         <div class="card">
           <div class="icon" aria-hidden="true">🇯🇵</div>
-          <h3>Kambara Nihongo no Kai Ayumi — Kambara, Japan</h3>
-          <p>Website for a volunteer Japanese-language group in Kambara, Shizuoka — fully available in 5 languages, with a complete lesson guide, events, and a study apps section.</p>
-          <p style="margin-top:14px;"><a class="btn-blue" href="https://sachinarati.github.io/kambara-nihongo-ayumi/">Visit the website</a></p>
+          <h3 data-i18n="kamb_t">Kambara Nihongo no Kai Ayumi — Kambara, Japan</h3>
+          <p data-i18n="kamb_p">Website for a volunteer Japanese-language group in Kambara, Shizuoka — fully available in 5 languages, with a complete lesson guide, events, and a study apps section.</p>
+          <p style="margin-top:14px;"><a class="btn-blue" href="https://sachinarati.github.io/kambara-nihongo-ayumi/" data-i18n="work_btn">Visit the website</a></p>
         </div>
       </div>
-      <p class="honest-note">More examples coming as we help more businesses.</p>
+      <p class="honest-note" data-i18n="work_note">More examples coming as we help more businesses.</p>
     </div>
   </section>
 
   <!-- ============ Why free ============ -->
   <section id="why" aria-labelledby="why-h">
-    <div class="wrap">
-      <h2 id="why-h">Why is it free?</h2>
+    <div class="wrap reveal">
+      <h2 id="why-h" data-i18n="why_h">Why is it free?</h2>
       <div class="wide-card">
-        <p class="big">Because helping is how we learn <span class="heart" aria-hidden="true">♥</span></p>
-        <p>Honestly? We are a small, new team, and the best way to learn is by helping real businesses. So we create one-page websites for small businesses completely free, as goodwill.</p>
-        <p>There is no catch, there are no hidden charges, and we are not selling anything on the side. You get a page you can share with pride; we get experience, honest feedback, and the joy of helping.</p>
-        <p>We don't accept payment or donations for this work — helping is the whole point.</p>
+        <p class="big" data-i18n="why_big">Because helping is how we learn <span class="heart" aria-hidden="true">♥</span></p>
+        <p data-i18n="why_p1">Honestly? We are a small, new team, and the best way to learn is by helping real businesses. So we create one-page websites for small businesses completely free, as goodwill.</p>
+        <p data-i18n="why_p2">There is no catch, there are no hidden charges, and we are not selling anything on the side. You get a page you can share with pride; we get experience, honest feedback, and the joy of helping.</p>
+        <p data-i18n="why_p3">We don't accept payment or donations for this work — helping is the whole point.</p>
       </div>
     </div>
   </section>
 
   <!-- ============ What you get ============ -->
   <section id="get" aria-labelledby="get-h">
-    <div class="wrap">
-      <h2 id="get-h">What you get</h2>
-      <p class="section-sub">Everything below, for your one free page.</p>
+    <div class="wrap reveal">
+      <h2 id="get-h" data-i18n="get_h">What you get</h2>
+      <p class="section-sub" data-i18n="get_sub">Everything below, for your one free page.</p>
       <div class="checklist">
-        <div class="check"><span class="tick" aria-hidden="true">✓</span><span>A one-page website, made for your business</span></div>
-        <div class="check"><span class="tick" aria-hidden="true">✓</span><span>Your own text and your own photos</span></div>
-        <div class="check"><span class="tick" aria-hidden="true">✓</span><span>Call, WhatsApp and directions buttons</span></div>
-        <div class="check"><span class="tick" aria-hidden="true">✓</span><span>Mobile-friendly — looks great on phones</span></div>
-        <div class="check"><span class="tick" aria-hidden="true">✓</span><span>Free hosting, always online</span></div>
-        <div class="check"><span class="tick" aria-hidden="true">✓</span><span>Small updates on request, as goodwill</span></div>
-        <div class="check"><span class="tick" aria-hidden="true">✓</span><span>A copy of your files, anytime you ask</span></div>
-        <div class="check"><span class="tick" aria-hidden="true">✓</span><span>Take your page down anytime</span></div>
+        <div class="check"><span class="tick" aria-hidden="true">✓</span><span data-i18n="g1">A one-page website, made for your business</span></div>
+        <div class="check"><span class="tick" aria-hidden="true">✓</span><span data-i18n="g2">Your own text and your own photos</span></div>
+        <div class="check"><span class="tick" aria-hidden="true">✓</span><span data-i18n="g3">Call and email contact buttons</span></div>
+        <div class="check"><span class="tick" aria-hidden="true">✓</span><span data-i18n="g4">Mobile-friendly — looks great on phones</span></div>
+        <div class="check"><span class="tick" aria-hidden="true">✓</span><span data-i18n="g5">Free hosting, always online</span></div>
+        <div class="check"><span class="tick" aria-hidden="true">✓</span><span data-i18n="g6">Small updates on request, as goodwill</span></div>
+        <div class="check"><span class="tick" aria-hidden="true">✓</span><span data-i18n="g7">A copy of your files, anytime you ask</span></div>
+        <div class="check"><span class="tick" aria-hidden="true">✓</span><span data-i18n="g8">Take your page down anytime</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ FAQ ============ -->
+  <section id="faq" aria-labelledby="faq-h">
+    <div class="wrap reveal">
+      <h2 id="faq-h" data-i18n="faq_h">Questions, answered</h2>
+      <p class="section-sub" data-i18n="faq_sub">Tap a question to open the answer.</p>
+      <div class="faq">
+        <details>
+          <summary data-i18n="q1">Is it really 100% free?</summary>
+          <p data-i18n="a1">Yes. Creating and hosting your one-page website is a goodwill service — no charge, no hidden costs, ever. We don't accept payment or donations for this work.</p>
+        </details>
+        <details>
+          <summary data-i18n="q2">What do I need to provide?</summary>
+          <p data-i18n="a2">Just your business details in a short form: what you do, your services, opening hours, contact details, and how you'd like your page to look — style and colours. Your own text and photos are welcome too.</p>
+        </details>
+        <details>
+          <summary data-i18n="q3">Can I ask for changes?</summary>
+          <p data-i18n="a3">Of course. You see a preview first and approve it before it is final, and you can ask us for small updates afterwards, as goodwill.</p>
+        </details>
+        <details>
+          <summary data-i18n="q4">Can I get my files, or take my page down?</summary>
+          <p data-i18n="a4">Anytime. You own your content — email us and we'll send you a copy of your page's files, or take the page down, whenever you ask.</p>
+        </details>
       </div>
     </div>
   </section>
 
   <!-- ============ Terms summary ============ -->
   <section id="terms-summary" aria-labelledby="terms-h">
-    <div class="wrap">
-      <h2 id="terms-h">Fair &amp; simple terms</h2>
-      <p class="section-sub">The short version, in plain words. The full version is one click away.</p>
+    <div class="wrap reveal">
+      <h2 id="terms-h" data-i18n="terms_h">Fair &amp; simple terms</h2>
+      <p class="section-sub" data-i18n="terms_sub">The short version, in plain words. The full version is one click away.</p>
       <div class="wide-card">
         <ul class="terms-list">
-          <li>Your one-page website is free — a goodwill service, with no charge, ever.</li>
-          <li>You own your content, and you approve your page before anything goes live.</li>
-          <li>Your page is hosted free by GitHub, on our account, and provided “as is” — we can't promise uptime, visitors or sales.</li>
-          <li>Ask us anytime for a copy of your files, or to take your page down.</li>
+          <li data-i18n="t1">Your one-page website is free — a goodwill service, with no charge, ever.</li>
+          <li data-i18n="t2">You own your content, and you approve your page before anything goes live.</li>
+          <li data-i18n="t3">Your page is hosted free by GitHub, on our account, and provided “as is” — we can't promise uptime, visitors or sales.</li>
+          <li data-i18n="t4">Ask us anytime for a copy of your files, or to take your page down.</li>
         </ul>
-        <a class="btn-outline" href="./terms.html">Read the full Terms &amp; Conditions</a>
+        <a class="btn-outline" href="./terms.html" data-i18n="terms_btn">Read the full Terms &amp; Conditions</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ Contact CTA ============ -->
+  <section id="contact" aria-labelledby="cta-h">
+    <div class="wrap reveal">
+      <div class="wide-card">
+        <p class="big" data-i18n="cta_h">Ready to grow online?</p>
+        <p data-i18n="cta_p">Send us an email and tell us a little about your business. We'll reply with the short form, and your free page will be on its way.</p>
+        <p style="margin-top:16px;"><a class="btn-main" href="mailto:helpy-sb@proton.me" data-i18n="cta_btn">Email Helpy — it's free</a></p>
       </div>
     </div>
   </section>
@@ -297,11 +431,211 @@
 <footer>
   <div class="wrap">
     <div class="fname">Helpy</div>
-    <div class="ftag">We help you grow online.</div>
-    <p>Contact: <a href="mailto:helpy-sb@proton.me">helpy-sb@proton.me</a> · <a href="./terms.html">Terms &amp; Conditions</a></p>
-    <p>Made with goodwill.</p>
+    <div class="ftag" data-i18n="foot_tag">We help you grow online.</div>
+    <p><span data-i18n="foot_contact">Contact:</span> <a href="mailto:helpy-sb@proton.me">helpy-sb@proton.me</a> · <a href="./terms.html" data-i18n="foot_terms">Terms &amp; Conditions</a></p>
+    <p data-i18n="foot_made">Made with goodwill.</p>
   </div>
 </footer>
 
+<button id="toTop" aria-label="Back to top">↑</button>
+
+<script>
+/* ================= Language switching ================= */
+var I18N = {
+en: {
+  nav_what:"What we do", nav_how:"How it works", nav_work:"Our work", nav_faq:"FAQ",
+  hero_tagline:"We help you grow online.",
+  hero_promise:"We create <strong>free one-page websites for small businesses</strong> — completely free, as a goodwill service, and always online. One clean page with your story, your services and your contact buttons, so new customers can find you and reach you.",
+  hero_flags:"Now making websites for clients in the <span class=\"fl\">🇬🇧</span> United Kingdom and <span class=\"fl\">🇯🇵</span> Japan",
+  hero_cta1:"See our work", hero_cta2:"Read our Terms",
+  chip1:"100% free", chip2:"No hidden charges", chip3:"Always online", chip4:"You approve before it goes live",
+  stat1_l:"websites live", stat2_l:"countries served 🇬🇧 🇯🇵", stat3_l:"free, forever",
+  what_h:"What we do", what_sub:"One free static one-page website for your business — simple, friendly, and built around what your customers need to know.",
+  w1t:"One page, all about you", w1p:"Your business name, your story, your services and your opening hours — one clean page that looks great on phones and computers alike.",
+  w2t:"Buttons that bring customers", w2p:"Tap-to-call and email buttons, so a visitor can reach you in one tap.",
+  w3t:"Hosted free, always online", w3p:"Your page is hosted free via GitHub Pages, so it stays online day and night — no hosting bills for you, ever.",
+  w4t:"You approve it first", w4p:"We send you a preview before anything is final. Your page is yours — and we adjust what you ask us to adjust.",
+  how_h:"How it works", how_sub:"Four easy steps, all by email. No meetings, no jargon, no pressure.",
+  s1t:"Say hello", s1p:"Reply to our email or contact us at <a href=\"mailto:helpy-sb@proton.me\">helpy-sb@proton.me</a> and tell us a little about your business.",
+  s2t:"Fill a short form", s2p:"We send you a short form: your business details, plus how you want your page to look — style, colours, and what matters most to you.",
+  s3t:"We build it — you approve", s3p:"We build your page and send you a preview. Nothing is final without your OK, and we adjust what you ask us to adjust.",
+  s4t:"Your page is live", s4p:"Share your link everywhere — social media, receipts, your shop window. Ask us anytime for small updates, or for a copy of your files.",
+  work_h:"Our work", work_sub:"We have now made websites for clients in <strong>Japan 🇯🇵</strong> and the <strong>United Kingdom 🇬🇧</strong> — real work, really live. Go and see for yourself.",
+  skie_t:"Skie — a free weather-buddy app", skie_p:"Skie checks the weather every morning and tells you what to carry — an umbrella, a sweater, some water. We built Skie's website and its app download page with the same free tools we offer you.", skie_btn:"Visit the Skie website",
+  nikki_t:"Nikki Pascall Tuition — Audlem, UK", nikki_p:"A warm, friendly one-page website for a private tutor in Audlem, Cheshire — SATs, GCSE and 11+ tuition, plus flute & piano lessons, opening hours, and Book / Enquire call and email buttons.", work_btn:"Visit the website",
+  kamb_t:"Kambara Nihongo no Kai Ayumi — Kambara, Japan", kamb_p:"Website for a volunteer Japanese-language group in Kambara, Shizuoka — fully available in 5 languages, with a complete lesson guide, events, and a study apps section.",
+  work_note:"More examples coming as we help more businesses.",
+  why_h:"Why is it free?", why_big:"Because helping is how we learn ♥",
+  why_p1:"Honestly? We are a small, new team, and the best way to learn is by helping real businesses. So we create one-page websites for small businesses completely free, as goodwill.",
+  why_p2:"There is no catch, there are no hidden charges, and we are not selling anything on the side. You get a page you can share with pride; we get experience, honest feedback, and the joy of helping.",
+  why_p3:"We don't accept payment or donations for this work — helping is the whole point.",
+  get_h:"What you get", get_sub:"Everything below, for your one free page.",
+  g1:"A one-page website, made for your business", g2:"Your own text and your own photos", g3:"Call and email contact buttons", g4:"Mobile-friendly — looks great on phones", g5:"Free hosting, always online", g6:"Small updates on request, as goodwill", g7:"A copy of your files, anytime you ask", g8:"Take your page down anytime",
+  faq_h:"Questions, answered", faq_sub:"Tap a question to open the answer.",
+  q1:"Is it really 100% free?", a1:"Yes. Creating and hosting your one-page website is a goodwill service — no charge, no hidden costs, ever. We don't accept payment or donations for this work.",
+  q2:"What do I need to provide?", a2:"Just your business details in a short form: what you do, your services, opening hours, contact details, and how you'd like your page to look — style and colours. Your own text and photos are welcome too.",
+  q3:"Can I ask for changes?", a3:"Of course. You see a preview first and approve it before it is final, and you can ask us for small updates afterwards, as goodwill.",
+  q4:"Can I get my files, or take my page down?", a4:"Anytime. You own your content — email us and we'll send you a copy of your page's files, or take the page down, whenever you ask.",
+  terms_h:"Fair & simple terms", terms_sub:"The short version, in plain words. The full version is one click away.",
+  t1:"Your one-page website is free — a goodwill service, with no charge, ever.", t2:"You own your content, and you approve your page before anything goes live.", t3:"Your page is hosted free by GitHub, on our account, and provided “as is” — we can't promise uptime, visitors or sales.", t4:"Ask us anytime for a copy of your files, or to take your page down.", terms_btn:"Read the full Terms & Conditions",
+  cta_h:"Ready to grow online?", cta_p:"Send us an email and tell us a little about your business. We'll reply with the short form, and your free page will be on its way.", cta_btn:"Email Helpy — it's free",
+  foot_tag:"We help you grow online.", foot_contact:"Contact:", foot_terms:"Terms & Conditions", foot_made:"Made with goodwill."
+},
+mr: {
+  nav_what:"आम्ही काय करतो", nav_how:"हे कसे चालते", nav_work:"आमचे काम", nav_faq:"प्रश्न",
+  hero_tagline:"आम्ही तुम्हाला ऑनलाइन वाढायला मदत करतो.",
+  hero_promise:"आम्ही <strong>लहान व्यवसायांसाठी मोफत एक-पानाच्या वेबसाइट</strong> बनवतो — अगदी मोफत, सद्भावना म्हणून, आणि नेहमी ऑनलाइन. तुमची गोष्ट, तुमच्या सेवा आणि संपर्क बटणे असलेले एक स्वच्छ पान — म्हणजे नवीन ग्राहक तुम्हाला शोधू शकतील आणि तुमच्यापर्यंत पोहोचू शकतील.",
+  hero_flags:"आता आम्ही <span class=\"fl\">🇬🇧</span> युनायटेड किंगडम आणि <span class=\"fl\">🇯🇵</span> जपान मधील ग्राहकांसाठी वेबसाइट बनवत आहोत",
+  hero_cta1:"आमचे काम पहा", hero_cta2:"आमच्या अटी वाचा",
+  chip1:"१००% मोफत", chip2:"कोणतेही छुपे शुल्क नाही", chip3:"नेहमी ऑनलाइन", chip4:"लाइव्ह होण्यापूर्वी तुमची मान्यता",
+  stat1_l:"वेबसाइट लाइव्ह", stat2_l:"देशांमध्ये सेवा 🇬🇧 🇯🇵", stat3_l:"मोफत, कायमचे",
+  what_h:"आम्ही काय करतो", what_sub:"तुमच्या व्यवसायासाठी एक मोफत एक-पानाची वेबसाइट — साधी, मैत्रीपूर्ण, आणि तुमच्या ग्राहकांना जे जाणून घ्यायचे आहे त्याभोवती बनवलेली.",
+  w1t:"एक पान, फक्त तुमच्याबद्दल", w1p:"तुमच्या व्यवसायाचे नाव, तुमची गोष्ट, तुमच्या सेवा आणि तुमच्या वेळा — फोन आणि संगणक दोन्हीवर छान दिसणारे एक स्वच्छ पान.",
+  w2t:"ग्राहक आणणारी बटणे", w2p:"टॅप करून कॉल आणि ईमेल बटणे — म्हणजे पाहुणा एका टॅपमध्ये तुमच्यापर्यंत पोहोचतो.",
+  w3t:"मोफत होस्टिंग, नेहमी ऑनलाइन", w3p:"तुमचे पान GitHub Pages वर मोफत ठेवले जाते, म्हणजे ते रात्रंदिवस ऑनलाइन राहते — तुम्हाला होस्टिंगचे बिल कधीच नाही.",
+  w4t:"आधी तुमची मान्यता", w4p:"काहीही अंतिम होण्यापूर्वी आम्ही तुम्हाला झलक पाठवतो. तुमचे पान तुमचेच आहे — आणि तुम्ही सांगाल ते बदल आम्ही करतो.",
+  how_h:"हे कसे चालते", how_sub:"चार सोप्या पायऱ्या, सगळं ईमेलवर. बैठका नाहीत, अवघड शब्द नाहीत, दबाव नाही.",
+  s1t:"नमस्कार म्हणा", s1p:"आमच्या ईमेलला उत्तर द्या किंवा <a href=\"mailto:helpy-sb@proton.me\">helpy-sb@proton.me</a> वर संपर्क साधा आणि तुमच्या व्यवसायाबद्दल थोडी माहिती सांगा.",
+  s2t:"एक छोटा फॉर्म भरा", s2p:"आम्ही तुम्हाला एक छोटा फॉर्म पाठवतो: तुमच्या व्यवसायाची माहिती, आणि तुमचे पान कसे दिसावे — शैली, रंग, आणि तुमच्यासाठी महत्त्वाच्या गोष्टी.",
+  s3t:"आम्ही बनवतो — तुम्ही मान्यता देता", s3p:"आम्ही तुमचे पान बनवून तुम्हाला झलक पाठवतो. तुमच्या होकाराशिवाय काहीही अंतिम नाही, आणि तुम्ही सांगाल ते बदल आम्ही करतो.",
+  s4t:"तुमचे पान लाइव्ह", s4p:"तुमची लिंक सगळीकडे शेअर करा — सोशल मीडिया, पावत्या, दुकानाची खिडकी. छोटे बदल किंवा तुमच्या फाइलची प्रत हवी असल्यास कधीही विचारा.",
+  work_h:"आमचे काम", work_sub:"आम्ही आता <strong>जपान 🇯🇵</strong> आणि <strong>युनायटेड किंगडम 🇬🇧</strong> मधील ग्राहकांसाठी वेबसाइट बनवल्या आहेत — खरे काम, खरोखर लाइव्ह. स्वतः जाऊन पहा.",
+  skie_t:"Skie — मोफत हवामान-मित्र अ‍ॅप", skie_p:"Skie रोज सकाळी हवामान तपासते आणि काय घ्यायचे ते सांगते — छत्री, स्वेटर, पाणी. आम्ही Skie ची वेबसाइट आणि अ‍ॅप डाउनलोड पान त्याच मोफत साधनांनी बनवले जे आम्ही तुम्हाला देतो.", skie_btn:"Skie ची वेबसाइट पहा",
+  nikki_t:"Nikki Pascall Tuition — ऑडलेम, UK", nikki_p:"चेशायरमधील ऑडलेम येथील एका खाजगी शिक्षिकेसाठी उबदार, मैत्रीपूर्ण एक-पानाची वेबसाइट — SATs, GCSE आणि 11+ शिकवणी, तसेच बासरी व पियानोचे धडे, वेळा, आणि Book / Enquire कॉल व ईमेल बटणे.", work_btn:"वेबसाइट पहा",
+  kamb_t:"Kambara Nihongo no Kai Ayumi — कांबारा, जपान", kamb_p:"शिझुओकामधील कांबारा येथील स्वयंसेवी जपानी-भाषा गटाची वेबसाइट — ५ भाषांमध्ये पूर्ण उपलब्ध, संपूर्ण धडा मार्गदर्शक, कार्यक्रम आणि अभ्यास अ‍ॅप्स विभागासह.",
+  work_note:"आम्ही आणखी व्यवसायांना मदत करू तशी आणखी उदाहरणे येतील.",
+  why_h:"हे मोफत का आहे?", why_big:"कारण मदत करणे हाच आमचा शिकण्याचा मार्ग आहे ♥",
+  why_p1:"खरं सांगायचं तर? आम्ही एक छोटा, नवीन संघ आहोत, आणि शिकण्याचा सर्वोत्तम मार्ग म्हणजे खऱ्या व्यवसायांना मदत करणे. म्हणून आम्ही लहान व्यवसायांसाठी एक-पानाच्या वेबसाइट अगदी मोफत, सद्भावनेने बनवतो.",
+  why_p2:"यात कोणताही अडथळा नाही, छुपे शुल्क नाही, आणि आम्ही बाजूला काहीही विकत नाही. तुम्हाला अभिमानाने शेअर करता येईल असे पान मिळते; आम्हाला अनुभव, प्रामाणिक अभिप्राय आणि मदतीचा आनंद मिळतो.",
+  why_p3:"या कामासाठी आम्ही पैसे किंवा देणग्या स्वीकारत नाही — मदत करणे हाच मुख्य उद्देश आहे.",
+  get_h:"तुम्हाला काय मिळते", get_sub:"खालील सर्व, तुमच्या एका मोफत पानासाठी.",
+  g1:"तुमच्या व्यवसायासाठी बनवलेली एक-पानाची वेबसाइट", g2:"तुमचा स्वतःचा मजकूर आणि तुमचे स्वतःचे फोटो", g3:"कॉल आणि ईमेल संपर्क बटणे", g4:"मोबाइल-अनुकूल — फोनवर छान दिसते", g5:"मोफत होस्टिंग, नेहमी ऑनलाइन", g6:"विनंतीवर छोटे बदल, सद्भावनेने", g7:"तुमच्या फाइलची प्रत, तुम्ही विचाराल तेव्हा", g8:"तुमचे पान कधीही बंद करा",
+  faq_h:"प्रश्नांची उत्तरे", faq_sub:"उत्तर उघडण्यासाठी प्रश्नावर टॅप करा.",
+  q1:"हे खरोखर १००% मोफत आहे का?", a1:"हो. तुमची एक-पानाची वेबसाइट बनवणे आणि ठेवणे ही सद्भावना सेवा आहे — कोणतेही शुल्क नाही, छुपे खर्च कधीच नाहीत. या कामासाठी आम्ही पैसे किंवा देणग्या स्वीकारत नाही.",
+  q2:"मला काय द्यावे लागेल?", a2:"फक्त एका छोट्या फॉर्ममध्ये तुमच्या व्यवसायाची माहिती: तुम्ही काय करता, तुमच्या सेवा, वेळा, संपर्क माहिती, आणि तुमचे पान कसे दिसावे — शैली आणि रंग. तुमचा स्वतःचा मजकूर आणि फोटोही स्वागतार्ह आहेत.",
+  q3:"मी बदल मागू शकतो का?", a3:"नक्कीच. आधी तुम्हाला झलक दिसते आणि अंतिम होण्यापूर्वी तुमची मान्यता असते, आणि नंतरही तुम्ही सद्भावनेने छोटे बदल मागू शकता.",
+  q4:"मला माझ्या फाइल मिळू शकतात का, किंवा पान बंद करता येईल का?", a4:"कधीही. तुमची सामग्री तुमचीच आहे — आम्हाला ईमेल करा, आम्ही तुमच्या पानाच्या फाइलची प्रत पाठवू, किंवा तुम्ही सांगाल तेव्हा पान बंद करू.",
+  terms_h:"न्याय्य आणि सोप्या अटी", terms_sub:"थोडक्यात, सोप्या शब्दांत. पूर्ण आवृत्ती एका क्लिकवर.",
+  t1:"तुमची एक-पानाची वेबसाइट मोफत आहे — सद्भावना सेवा, कोणतेही शुल्क नाही, कधीच.", t2:"तुमची सामग्री तुमचीच आहे, आणि काहीही लाइव्ह होण्यापूर्वी तुम्ही तुमच्या पानाला मान्यता देता.", t3:"तुमचे पान GitHub कडून आमच्या खात्यावर मोफत ठेवले जाते आणि “जसे आहे तसे” दिले जाते — आम्ही अपटाइम, भेटी किंवा विक्रीचे वचन देऊ शकत नाही.", t4:"तुमच्या फाइलची प्रत किंवा पान बंद करण्यासाठी कधीही विचारा.", terms_btn:"पूर्ण अटी व शर्ती वाचा",
+  cta_h:"ऑनलाइन वाढायला तयार आहात?", cta_p:"आम्हाला ईमेल पाठवा आणि तुमच्या व्यवसायाबद्दल थोडी माहिती सांगा. आम्ही छोट्या फॉर्मसह उत्तर देऊ, आणि तुमचे मोफत पान वाटेवर असेल.", cta_btn:"Helpy ला ईमेल करा — हे मोफत आहे",
+  foot_tag:"आम्ही तुम्हाला ऑनलाइन वाढायला मदत करतो.", foot_contact:"संपर्क:", foot_terms:"अटी व शर्ती", foot_made:"सद्भावनेने बनवले."
+},
+hi: {
+  nav_what:"हम क्या करते हैं", nav_how:"यह कैसे काम करता है", nav_work:"हमारा काम", nav_faq:"सवाल",
+  hero_tagline:"हम आपको ऑनलाइन बढ़ने में मदद करते हैं।",
+  hero_promise:"हम <strong>छोटे व्यवसायों के लिए मुफ़्त एक-पेज वेबसाइट</strong> बनाते हैं — बिल्कुल मुफ़्त, सद्भावना के रूप में, और हमेशा ऑनलाइन। आपकी कहानी, आपकी सेवाएँ और संपर्क बटन वाला एक साफ़ पेज — ताकि नए ग्राहक आपको ढूँढ सकें और आप तक पहुँच सकें।",
+  hero_flags:"अब हम <span class=\"fl\">🇬🇧</span> यूनाइटेड किंगडम और <span class=\"fl\">🇯🇵</span> जापान के ग्राहकों के लिए वेबसाइट बना रहे हैं",
+  hero_cta1:"हमारा काम देखें", hero_cta2:"हमारी शर्तें पढ़ें",
+  chip1:"100% मुफ़्त", chip2:"कोई छिपा शुल्क नहीं", chip3:"हमेशा ऑनलाइन", chip4:"लाइव होने से पहले आपकी मंज़ूरी",
+  stat1_l:"वेबसाइट लाइव", stat2_l:"देशों में सेवा 🇬🇧 🇯🇵", stat3_l:"मुफ़्त, हमेशा के लिए",
+  what_h:"हम क्या करते हैं", what_sub:"आपके व्यवसाय के लिए एक मुफ़्त एक-पेज वेबसाइट — सरल, मैत्रीपूर्ण, और आपके ग्राहकों की ज़रूरतों के हिसाब से बनी।",
+  w1t:"एक पेज, सिर्फ़ आपके बारे में", w1p:"आपके व्यवसाय का नाम, आपकी कहानी, आपकी सेवाएँ और आपके समय — एक साफ़ पेज जो फ़ोन और कंप्यूटर दोनों पर बढ़िया दिखता है।",
+  w2t:"ग्राहक लाने वाले बटन", w2p:"टैप-टू-कॉल और ईमेल बटन — ताकि कोई भी एक टैप में आप तक पहुँच सके।",
+  w3t:"मुफ़्त होस्टिंग, हमेशा ऑनलाइन", w3p:"आपका पेज GitHub Pages पर मुफ़्त रखा जाता है, इसलिए यह दिन-रात ऑनलाइन रहता है — आपके लिए होस्टिंग का बिल कभी नहीं।",
+  w4t:"पहले आपकी मंज़ूरी", w4p:"कुछ भी अंतिम होने से पहले हम आपको झलक भेजते हैं। आपका पेज आपका है — और आप जो बदलाव कहेंगे, हम करेंगे।",
+  how_h:"यह कैसे काम करता है", how_sub:"चार आसान कदम, सब ईमेल पर। कोई मीटिंग नहीं, कोई कठिन शब्द नहीं, कोई दबाव नहीं।",
+  s1t:"नमस्ते कहें", s1p:"हमारे ईमेल का जवाब दें या <a href=\"mailto:helpy-sb@proton.me\">helpy-sb@proton.me</a> पर संपर्क करें और अपने व्यवसाय के बारे में थोड़ा बताएं।",
+  s2t:"एक छोटा फ़ॉर्म भरें", s2p:"हम आपको एक छोटा फ़ॉर्म भेजते हैं: आपके व्यवसाय की जानकारी, और आपका पेज कैसा दिखे — शैली, रंग, और आपके लिए सबसे ज़रूरी बातें।",
+  s3t:"हम बनाते हैं — आप मंज़ूरी देते हैं", s3p:"हम आपका पेज बनाकर आपको झलक भेजते हैं। आपकी सहमति के बिना कुछ भी अंतिम नहीं, और आप जो बदलाव कहेंगे हम करेंगे।",
+  s4t:"आपका पेज लाइव", s4p:"अपनी लिंक हर जगह साझा करें — सोशल मीडिया, रसीदें, दुकान की खिड़की। छोटे अपडेट या अपनी फ़ाइलों की प्रति के लिए कभी भी पूछें।",
+  work_h:"हमारा काम", work_sub:"हमने अब <strong>जापान 🇯🇵</strong> और <strong>यूनाइटेड किंगडम 🇬🇧</strong> के ग्राहकों के लिए वेबसाइट बनाई हैं — असली काम, सच में लाइव। खुद जाकर देखें।",
+  skie_t:"Skie — एक मुफ़्त मौसम-मित्र ऐप", skie_p:"Skie हर सुबह मौसम जाँचता है और बताता है क्या साथ रखें — छाता, स्वेटर, पानी। हमने Skie की वेबसाइट और उसका ऐप डाउनलोड पेज उन्हीं मुफ़्त साधनों से बनाया जो हम आपको देते हैं।", skie_btn:"Skie की वेबसाइट देखें",
+  nikki_t:"Nikki Pascall Tuition — ऑडलेम, UK", nikki_p:"चेशायर के ऑडलेम में एक निजी शिक्षिका के लिए गर्मजोशी भरी, मैत्रीपूर्ण एक-पेज वेबसाइट — SATs, GCSE और 11+ ट्यूशन, साथ में बाँसुरी और पियानो के पाठ, समय, और Book / Enquire कॉल व ईमेल बटन।", work_btn:"वेबसाइट देखें",
+  kamb_t:"Kambara Nihongo no Kai Ayumi — कांबारा, जापान", kamb_p:"शिज़ुओका के कांबारा में एक स्वयंसेवी जापानी-भाषा समूह की वेबसाइट — 5 भाषाओं में पूरी तरह उपलब्ध, संपूर्ण पाठ गाइड, कार्यक्रम और अध्ययन ऐप्स अनुभाग के साथ।",
+  work_note:"जैसे-जैसे हम और व्यवसायों की मदद करेंगे, और उदाहरण आते रहेंगे।",
+  why_h:"यह मुफ़्त क्यों है?", why_big:"क्योंकि मदद करना ही हमारा सीखने का तरीका है ♥",
+  why_p1:"सच कहें तो? हम एक छोटी, नई टीम हैं, और सीखने का सबसे अच्छा तरीका है असली व्यवसायों की मदद करना। इसलिए हम छोटे व्यवसायों के लिए एक-पेज वेबसाइट बिल्कुल मुफ़्त, सद्भावना से बनाते हैं।",
+  why_p2:"इसमें कोई पेंच नहीं है, कोई छिपा शुल्क नहीं है, और हम साथ में कुछ बेच नहीं रहे। आपको गर्व से साझा करने लायक पेज मिलता है; हमें अनुभव, ईमानदार प्रतिक्रिया और मदद की खुशी मिलती है।",
+  why_p3:"इस काम के लिए हम पैसे या दान स्वीकार नहीं करते — मदद करना ही मुख्य मक़सद है।",
+  get_h:"आपको क्या मिलता है", get_sub:"नीचे की सब कुछ, आपके एक मुफ़्त पेज के लिए।",
+  g1:"आपके व्यवसाय के लिए बनी एक-पेज वेबसाइट", g2:"आपका अपना पाठ और आपकी अपनी तस्वीरें", g3:"कॉल और ईमेल संपर्क बटन", g4:"मोबाइल-अनुकूल — फ़ोन पर बढ़िया दिखता है", g5:"मुफ़्त होस्टिंग, हमेशा ऑनलाइन", g6:"अनुरोध पर छोटे अपडेट, सद्भावना से", g7:"आपकी फ़ाइलों की प्रति, जब भी आप माँगें", g8:"अपना पेज कभी भी बंद करवाएँ",
+  faq_h:"सवालों के जवाब", faq_sub:"जवाब खोलने के लिए सवाल पर टैप करें।",
+  q1:"क्या यह सच में 100% मुफ़्त है?", a1:"हाँ। आपकी एक-पेज वेबसाइट बनाना और रखना एक सद्भावना सेवा है — कोई शुल्क नहीं, कोई छिपी लागत कभी नहीं। इस काम के लिए हम पैसे या दान स्वीकार नहीं करते।",
+  q2:"मुझे क्या देना होगा?", a2:"बस एक छोटे फ़ॉर्म में आपके व्यवसाय की जानकारी: आप क्या करते हैं, आपकी सेवाएँ, समय, संपर्क जानकारी, और आपका पेज कैसा दिखे — शैली और रंग। आपका अपना पाठ और तस्वीरें भी स्वागत योग्य हैं।",
+  q3:"क्या मैं बदलाव माँग सकता हूँ?", a3:"बिल्कुल। पहले आपको झलक दिखती है और अंतिम होने से पहले आपकी मंज़ूरी होती है, और बाद में भी आप सद्भावना से छोटे अपडेट माँग सकते हैं।",
+  q4:"क्या मुझे मेरी फ़ाइलें मिल सकती हैं, या पेज बंद हो सकता है?", a4:"कभी भी। आपकी सामग्री आपकी है — हमें ईमेल करें, हम आपके पेज की फ़ाइलों की प्रति भेज देंगे, या जब आप कहें पेज बंद कर देंगे।",
+  terms_h:"उचित और सरल शर्तें", terms_sub:"संक्षेप में, आसान शब्दों में। पूरा संस्करण एक क्लिक दूर है।",
+  t1:"आपकी एक-पेज वेबसाइट मुफ़्त है — एक सद्भावना सेवा, कोई शुल्क नहीं, कभी नहीं।", t2:"आपकी सामग्री आपकी है, और कुछ भी लाइव होने से पहले आप अपने पेज को मंज़ूरी देते हैं।", t3:"आपका पेज GitHub द्वारा हमारे खाते पर मुफ़्त रखा जाता है और “जैसा है वैसा” दिया जाता है — हम अपटाइम, आगंतुकों या बिक्री का वादा नहीं कर सकते।", t4:"अपनी फ़ाइलों की प्रति या पेज बंद करने के लिए कभी भी पूछें।", terms_btn:"पूरी नियम व शर्तें पढ़ें",
+  cta_h:"ऑनलाइन बढ़ने के लिए तैयार हैं?", cta_p:"हमें एक ईमेल भेजें और अपने व्यवसाय के बारे में थोड़ा बताएं। हम छोटे फ़ॉर्म के साथ जवाब देंगे, और आपका मुफ़्त पेज रास्ते पर होगा।", cta_btn:"Helpy को ईमेल करें — यह मुफ़्त है",
+  foot_tag:"हम आपको ऑनलाइन बढ़ने में मदद करते हैं।", foot_contact:"संपर्क:", foot_terms:"नियम व शर्तें", foot_made:"सद्भावना से बनाया गया।"
+},
+ja: {
+  nav_what:"サービス内容", nav_how:"ご利用の流れ", nav_work:"制作実績", nav_faq:"よくある質問",
+  hero_tagline:"オンラインでの成長をお手伝いします。",
+  hero_promise:"私たちは<strong>小規模事業者向けの1ページウェブサイトを無料で</strong>作成します。完全無料、善意のサービスとして、いつでもオンライン。あなたのストーリー、サービス、連絡ボタンを載せたシンプルな1ページで、新しいお客様があなたを見つけ、連絡できるようになります。",
+  hero_flags:"現在、<span class=\"fl\">🇬🇧</span> イギリスと <span class=\"fl\">🇯🇵</span> 日本のお客様のウェブサイトを作成しています",
+  hero_cta1:"制作実績を見る", hero_cta2:"利用規約を読む",
+  chip1:"100%無料", chip2:"隠れた料金なし", chip3:"いつでもオンライン", chip4:"公開前にあなたの承認",
+  stat1_l:"公開中のウェブサイト", stat2_l:"対応国 🇬🇧 🇯🇵", stat3_l:"ずっと無料",
+  what_h:"サービス内容", what_sub:"あなたのビジネスのための無料の1ページホームページ。シンプルで親しみやすく、お客様が知りたいことを中心に作ります。",
+  w1t:"1ページに、あなたのすべてを", w1p:"事業名、あなたのストーリー、サービス、営業時間 — スマートフォンでもパソコンでもきれいに見える、すっきりした1ページです。",
+  w2t:"お客様につながるボタン", w2p:"タップで電話・メールができるボタンで、訪問者がワンタップで連絡できます。",
+  w3t:"無料ホスティング、いつでもオンライン", w3p:"ページはGitHub Pagesに無料で公開されるので、昼も夜もオンライン。ホスティング料金は一切かかりません。",
+  w4t:"まずあなたが承認", w4p:"完成前にプレビューをお送りします。あなたのページはあなたのもの — ご希望の調整も行います。",
+  how_h:"ご利用の流れ", how_sub:"すべてメールで完結する、簡単な4ステップ。会議なし、専門用語なし、プレッシャーなし。",
+  s1t:"ごあいさつ", s1p:"私たちのメールに返信するか、<a href=\"mailto:helpy-sb@proton.me\">helpy-sb@proton.me</a> までご連絡ください。あなたのビジネスについて少し教えてください。",
+  s2t:"短いフォームに入力", s2p:"短いフォームをお送りします。ビジネスの詳細と、ページのイメージ — スタイル、色、あなたにとって大切なことを教えてください。",
+  s3t:"私たちが作成 — あなたが承認", s3p:"ページを作成し、プレビューをお送りします。あなたのOKなしに完成にはなりませんし、ご希望の調整も行います。",
+  s4t:"ページ公開", s4p:"リンクをSNS、レシート、お店の窓など、どこでも共有してください。小さな更新やファイルのコピーはいつでもお気軽にどうぞ。",
+  work_h:"制作実績", work_sub:"私たちは <strong>日本 🇯🇵</strong> と <strong>イギリス 🇬🇧</strong> のお客様のウェブサイトを作成しました — 実際に公開中の、本物の仕事です。ぜひご覧ください。",
+  skie_t:"Skie — 無料のお天気バディアプリ", skie_p:"Skieは毎朝天気をチェックし、傘やセーター、水など、その日に必要なものを教えてくれます。Skieのウェブサイトとアプリのダウンロードページは、私たちがあなたに提供するのと同じ無料ツールで作りました。", skie_btn:"Skieのウェブサイトを見る",
+  nikki_t:"Nikki Pascall Tuition — オードレム、イギリス", nikki_p:"チェシャー州オードレムの個人教師のための、温かく親しみやすい1ページウェブサイト。SATs、GCSE、11+の指導に加え、フルートとピアノのレッスン、営業時間、「Book / Enquire」の電話・メールボタンを掲載。", work_btn:"ウェブサイトを見る",
+  kamb_t:"かんばら・にほんごの会 あゆみ — 蒲原、日本", kamb_p:"静岡県蒲原のボランティア日本語グループのウェブサイト。5か国語に完全対応し、詳しいレッスンガイド、イベント、学習アプリのセクションを掲載。",
+  work_note:"お手伝いする事業者が増えるにつれて、実績も増えていきます。",
+  why_h:"なぜ無料なのですか？", why_big:"助けることが、私たちの学び方だからです ♥",
+  why_p1:"正直に言うと、私たちは小さな新しいチームで、学ぶ一番の方法は実際のビジネスを助けることです。だから小規模事業者向けの1ページウェブサイトを、善意として完全無料で作成しています。",
+  why_p2:"裏はありません。隠れた料金もなく、裏で何かを売ることもありません。あなたは自信を持って共有できるページを、私たちは経験と正直なフィードバック、そして助ける喜びを得ます。",
+  why_p3:"この仕事に対して支払いや寄付は受け取りません — 助けること自体が目的です。",
+  get_h:"含まれるもの", get_sub:"以下すべてが、あなたの無料の1ページに含まれます。",
+  g1:"あなたのビジネスのための1ページウェブサイト", g2:"あなた自身の文章と写真", g3:"電話とメールの連絡ボタン", g4:"モバイル対応 — スマートフォンできれいに表示", g5:"無料ホスティング、いつでもオンライン", g6:"ご希望に応じた小さな更新（善意として）", g7:"ファイルのコピー、いつでもお渡し", g8:"ページはいつでも削除可能",
+  faq_h:"よくある質問", faq_sub:"質問をタップすると答えが開きます。",
+  q1:"本当に100%無料ですか？", a1:"はい。1ページウェブサイトの作成と公開は善意のサービスで、料金も隠れた費用も一切ありません。この仕事に対して支払いや寄付は受け取りません。",
+  q2:"何を用意すればいいですか？", a2:"短いフォームにビジネスの詳細を入力するだけです。サービス内容、営業時間、連絡先、そしてページのイメージ — スタイルと色。ご自身の文章や写真も歓迎です。",
+  q3:"変更をお願いできますか？", a3:"もちろんです。完成前にプレビューをご確認いただき、承認後に完成となります。その後の小さな更新も、善意として承ります。",
+  q4:"ファイルをもらったり、ページを削除したりできますか？", a4:"いつでも可能です。コンテンツはあなたのものです。メールをいただければ、ページファイルのコピーをお送りするか、ページを削除します。",
+  terms_h:"公平でシンプルな規約", terms_sub:"短い版を、やさしい言葉で。全文はワンクリックで読めます。",
+  t1:"あなたの1ページウェブサイトは無料です — 善意のサービスで、料金は一切ありません。", t2:"コンテンツはあなたのもので、公開前にあなたがページを承認します。", t3:"ページはGitHubにより私たちのアカウントで無料公開され、「現状のまま」提供されます — 稼働率、訪問者数、売上はお約束できません。", t4:"ファイルのコピーやページの削除はいつでもご依頼ください。", terms_btn:"利用規約の全文を読む",
+  cta_h:"オンラインで成長する準備はできましたか？", cta_p:"メールであなたのビジネスについて少し教えてください。短いフォームとともに返信し、あなたの無料ページが動き出します。", cta_btn:"Helpyにメール — 無料です",
+  foot_tag:"オンラインでの成長をお手伝いします。", foot_contact:"お問い合わせ:", foot_terms:"利用規約", foot_made:"善意を込めて作りました。"
+}
+};
+var TITLES = { en:"Helpy — We help you grow online", mr:"Helpy — आम्ही तुम्हाला ऑनलाइन वाढायला मदत करतो", hi:"Helpy — हम आपको ऑनलाइन बढ़ने में मदद करते हैं", ja:"Helpy — オンラインでの成長をお手伝いします" };
+function setLang(lang){
+  if(!I18N[lang]) lang = "en";
+  var dict = I18N[lang];
+  var els = document.querySelectorAll("[data-i18n]");
+  for(var i=0;i<els.length;i++){
+    var key = els[i].getAttribute("data-i18n");
+    if(dict[key]) els[i].innerHTML = dict[key];
+  }
+  document.documentElement.lang = (lang==="mr") ? "mr" : (lang==="hi") ? "hi" : (lang==="ja") ? "ja" : "en";
+  document.title = TITLES[lang] || TITLES.en;
+  var sel = document.getElementById("langSel");
+  if(sel) sel.value = lang;
+  try{ localStorage.setItem("helpy-lang", lang); }catch(e){}
+}
+document.getElementById("langSel").addEventListener("change", function(){ setLang(this.value); });
+var savedLang = "en";
+try{ savedLang = localStorage.getItem("helpy-lang") || "en"; }catch(e){}
+setLang(savedLang);
+
+/* ================= Reveal on scroll ================= */
+var revealEls = document.querySelectorAll(".reveal");
+if("IntersectionObserver" in window){
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(en){ if(en.isIntersecting){ en.target.classList.add("in"); io.unobserve(en.target); } });
+  }, {threshold: 0.08});
+  revealEls.forEach(function(el){ io.observe(el); });
+}else{
+  revealEls.forEach(function(el){ el.classList.add("in"); });
+}
+
+/* ================= Back to top ================= */
+var toTop = document.getElementById("toTop");
+window.addEventListener("scroll", function(){
+  if(window.scrollY > 500){ toTop.classList.add("show"); }else{ toTop.classList.remove("show"); }
+}, {passive:true});
+toTop.addEventListener("click", function(){ window.scrollTo({top:0, behavior:"smooth"}); });
+</script>
 </body>
 </html>
