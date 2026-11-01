@@ -103,6 +103,11 @@
   .card{background:var(--card); border-radius:var(--radius); padding:26px 24px; box-shadow:var(--shadow); transition:transform .18s ease, box-shadow .18s ease;}
   .card:hover{transform:translateY(-5px); box-shadow:var(--shadow-lift);}
   .card .icon{font-size:1.9rem; line-height:1; margin-bottom:12px;}
+  .flagpic{margin-bottom:14px;}
+  .flagpic svg{width:58px; height:auto; display:block; border-radius:8px; border:1px solid #d9e6de; box-shadow:0 4px 12px rgba(23,53,42,.18);}
+  .subflags{display:flex; gap:14px; justify-content:center; margin:-12px auto 26px;}
+  .subflags .flagpic{margin-bottom:0;}
+  .subflags .flagpic svg{width:40px;}
   .card h3{font-size:1.12rem; margin-bottom:6px;}
   .card p{color:var(--ink-soft); font-size:.97rem;}
   .steps{display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:18px;}
@@ -319,7 +324,8 @@
   <section id="work" aria-labelledby="work-h">
     <div class="wrap reveal">
       <h2 id="work-h" data-i18n="work_h">Our work</h2>
-      <p class="section-sub" data-i18n="work_sub">We have now made websites for clients in <strong>Japan 🇯🇵</strong> and the <strong>United Kingdom 🇬🇧</strong> — real work, really live. Go and see for yourself.</p>
+      <p class="section-sub" data-i18n="work_sub">We have now made websites for clients in <strong>Japan</strong> and the <strong>United Kingdom</strong> — real work, really live. Go and see for yourself.</p>
+      <div class="subflags" aria-hidden="true"><span class="flagpic"><svg viewBox="0 0 60 40"><rect width="60" height="40" fill="#012169"/><path d="M0 0L60 40M60 0L0 40" stroke="#ffffff" stroke-width="8"/><path d="M0 0L60 40M60 0L0 40" stroke="#C8102E" stroke-width="3"/><rect x="24" width="12" height="40" fill="#ffffff"/><rect y="14" width="60" height="12" fill="#ffffff"/><rect x="26.5" width="7" height="40" fill="#C8102E"/><rect y="16.5" width="60" height="7" fill="#C8102E"/></svg></span><span class="flagpic"><svg viewBox="0 0 60 40"><rect width="60" height="40" fill="#ffffff"/><circle cx="30" cy="20" r="8" fill="#BC002D"/></svg></span></div>
       <div class="example-card">
         <!-- Skie, the cloud buddy -->
         <svg viewBox="0 0 220 170" role="img" aria-label="Skie, a smiling cloud buddy holding a small heart">
@@ -340,13 +346,13 @@
       </div>
       <div class="grid" style="margin-top:18px;">
         <div class="card">
-          <div class="icon" aria-hidden="true">🇬🇧</div>
+          <div class="flagpic" role="img" aria-label="Flag of the United Kingdom"><svg viewBox="0 0 60 40" aria-hidden="true"><rect width="60" height="40" fill="#012169"/><path d="M0 0L60 40M60 0L0 40" stroke="#ffffff" stroke-width="8"/><path d="M0 0L60 40M60 0L0 40" stroke="#C8102E" stroke-width="3"/><rect x="24" width="12" height="40" fill="#ffffff"/><rect y="14" width="60" height="12" fill="#ffffff"/><rect x="26.5" width="7" height="40" fill="#C8102E"/><rect y="16.5" width="60" height="7" fill="#C8102E"/></svg></div>
           <h3 data-i18n="nikki_t">Nikki Pascall Tuition — Audlem, UK</h3>
           <p data-i18n="nikki_p">A warm, friendly one-page website for a private tutor in Audlem, Cheshire — SATs, GCSE and 11+ tuition, plus flute &amp; piano lessons, opening hours, and Book / Enquire call and email buttons.</p>
           <p style="margin-top:14px;"><a class="btn-blue" href="https://skie-buddy.github.io/nikki-pascall-audlem-tuition/" data-i18n="work_btn">Visit the website</a></p>
         </div>
         <div class="card">
-          <div class="icon" aria-hidden="true">🇯🇵</div>
+          <div class="flagpic" role="img" aria-label="Flag of Japan"><svg viewBox="0 0 60 40" aria-hidden="true"><rect width="60" height="40" fill="#ffffff"/><circle cx="30" cy="20" r="8" fill="#BC002D"/></svg></div>
           <h3 data-i18n="kamb_t">Kambara Nihongo no Kai Ayumi — Kambara, Japan</h3>
           <p data-i18n="kamb_p">Website for a volunteer Japanese-language group in Kambara, Shizuoka — fully available in 5 languages, with a complete lesson guide, events, and a study apps section.</p>
           <p style="margin-top:14px;"><a class="btn-blue" href="https://sachinarati.github.io/kambara-nihongo-ayumi/" data-i18n="work_btn">Visit the website</a></p>
@@ -474,7 +480,7 @@ en: {
   s2t:"Fill a short form", s2p:"We send you a short form: your business details, plus how you want your page to look — style, colours, and what matters most to you.",
   s3t:"We build it — you approve", s3p:"We build your page and send you a preview. Nothing is final without your OK, and we adjust what you ask us to adjust.",
   s4t:"Your page is live", s4p:"Share your link everywhere — social media, receipts, your shop window. Ask us anytime for small updates, or for a copy of your files.",
-  work_h:"Our work", work_sub:"We have now made websites for clients in <strong>Japan 🇯🇵</strong> and the <strong>United Kingdom 🇬🇧</strong> — real work, really live. Go and see for yourself.",
+  work_h:"Our work", work_sub:"We have now made websites for clients in <strong>Japan</strong> and the <strong>United Kingdom</strong> — real work, really live. Go and see for yourself.",
   skie_t:"Skie — a free weather-buddy app", skie_p:"Skie checks the weather every morning and tells you what to carry — an umbrella, a sweater, some water. We built Skie's website and its app download page with the same free tools we offer you.", skie_btn:"Visit the Skie website",
   nikki_t:"Nikki Pascall Tuition — Audlem, UK", nikki_p:"A warm, friendly one-page website for a private tutor in Audlem, Cheshire — SATs, GCSE and 11+ tuition, plus flute & piano lessons, opening hours, and Book / Enquire call and email buttons.", work_btn:"Visit the website",
   kamb_t:"Kambara Nihongo no Kai Ayumi — Kambara, Japan", kamb_p:"Website for a volunteer Japanese-language group in Kambara, Shizuoka — fully available in 5 languages, with a complete lesson guide, events, and a study apps section.",
@@ -513,7 +519,7 @@ mr: {
   s2t:"एक छोटा फॉर्म भरा", s2p:"आम्ही तुम्हाला एक छोटा फॉर्म पाठवतो: तुमच्या व्यवसायाची माहिती, आणि तुमचे पान कसे दिसावे — शैली, रंग, आणि तुमच्यासाठी महत्त्वाच्या गोष्टी.",
   s3t:"आम्ही बनवतो — तुम्ही मान्यता देता", s3p:"आम्ही तुमचे पान बनवून तुम्हाला झलक पाठवतो. तुमच्या होकाराशिवाय काहीही अंतिम नाही, आणि तुम्ही सांगाल ते बदल आम्ही करतो.",
   s4t:"तुमचे पान लाइव्ह", s4p:"तुमची लिंक सगळीकडे शेअर करा — सोशल मीडिया, पावत्या, दुकानाची खिडकी. छोटे बदल किंवा तुमच्या फाइलची प्रत हवी असल्यास कधीही विचारा.",
-  work_h:"आमचे काम", work_sub:"आम्ही आता <strong>जपान 🇯🇵</strong> आणि <strong>युनायटेड किंगडम 🇬🇧</strong> मधील ग्राहकांसाठी वेबसाइट बनवल्या आहेत — खरे काम, खरोखर लाइव्ह. स्वतः जाऊन पहा.",
+  work_h:"आमचे काम", work_sub:"आम्ही आता <strong>जपान</strong> आणि <strong>युनायटेड किंगडम</strong> मधील ग्राहकांसाठी वेबसाइट बनवल्या आहेत — खरे काम, खरोखर लाइव्ह. स्वतः जाऊन पहा.",
   skie_t:"Skie — मोफत हवामान-मित्र अ‍ॅप", skie_p:"Skie रोज सकाळी हवामान तपासते आणि काय घ्यायचे ते सांगते — छत्री, स्वेटर, पाणी. आम्ही Skie ची वेबसाइट आणि अ‍ॅप डाउनलोड पान त्याच मोफत साधनांनी बनवले जे आम्ही तुम्हाला देतो.", skie_btn:"Skie ची वेबसाइट पहा",
   nikki_t:"Nikki Pascall Tuition — ऑडलेम, UK", nikki_p:"चेशायरमधील ऑडलेम येथील एका खाजगी शिक्षिकेसाठी उबदार, मैत्रीपूर्ण एक-पानाची वेबसाइट — SATs, GCSE आणि 11+ शिकवणी, तसेच बासरी व पियानोचे धडे, वेळा, आणि Book / Enquire कॉल व ईमेल बटणे.", work_btn:"वेबसाइट पहा",
   kamb_t:"Kambara Nihongo no Kai Ayumi — कांबारा, जपान", kamb_p:"शिझुओकामधील कांबारा येथील स्वयंसेवी जपानी-भाषा गटाची वेबसाइट — ५ भाषांमध्ये पूर्ण उपलब्ध, संपूर्ण धडा मार्गदर्शक, कार्यक्रम आणि अभ्यास अ‍ॅप्स विभागासह.",
@@ -552,7 +558,7 @@ hi: {
   s2t:"एक छोटा फ़ॉर्म भरें", s2p:"हम आपको एक छोटा फ़ॉर्म भेजते हैं: आपके व्यवसाय की जानकारी, और आपका पेज कैसा दिखे — शैली, रंग, और आपके लिए सबसे ज़रूरी बातें।",
   s3t:"हम बनाते हैं — आप मंज़ूरी देते हैं", s3p:"हम आपका पेज बनाकर आपको झलक भेजते हैं। आपकी सहमति के बिना कुछ भी अंतिम नहीं, और आप जो बदलाव कहेंगे हम करेंगे।",
   s4t:"आपका पेज लाइव", s4p:"अपनी लिंक हर जगह साझा करें — सोशल मीडिया, रसीदें, दुकान की खिड़की। छोटे अपडेट या अपनी फ़ाइलों की प्रति के लिए कभी भी पूछें।",
-  work_h:"हमारा काम", work_sub:"हमने अब <strong>जापान 🇯🇵</strong> और <strong>यूनाइटेड किंगडम 🇬🇧</strong> के ग्राहकों के लिए वेबसाइट बनाई हैं — असली काम, सच में लाइव। खुद जाकर देखें।",
+  work_h:"हमारा काम", work_sub:"हमने अब <strong>जापान</strong> और <strong>यूनाइटेड किंगडम</strong> के ग्राहकों के लिए वेबसाइट बनाई हैं — असली काम, सच में लाइव। खुद जाकर देखें।",
   skie_t:"Skie — एक मुफ़्त मौसम-मित्र ऐप", skie_p:"Skie हर सुबह मौसम जाँचता है और बताता है क्या साथ रखें — छाता, स्वेटर, पानी। हमने Skie की वेबसाइट और उसका ऐप डाउनलोड पेज उन्हीं मुफ़्त साधनों से बनाया जो हम आपको देते हैं।", skie_btn:"Skie की वेबसाइट देखें",
   nikki_t:"Nikki Pascall Tuition — ऑडलेम, UK", nikki_p:"चेशायर के ऑडलेम में एक निजी शिक्षिका के लिए गर्मजोशी भरी, मैत्रीपूर्ण एक-पेज वेबसाइट — SATs, GCSE और 11+ ट्यूशन, साथ में बाँसुरी और पियानो के पाठ, समय, और Book / Enquire कॉल व ईमेल बटन।", work_btn:"वेबसाइट देखें",
   kamb_t:"Kambara Nihongo no Kai Ayumi — कांबारा, जापान", kamb_p:"शिज़ुओका के कांबारा में एक स्वयंसेवी जापानी-भाषा समूह की वेबसाइट — 5 भाषाओं में पूरी तरह उपलब्ध, संपूर्ण पाठ गाइड, कार्यक्रम और अध्ययन ऐप्स अनुभाग के साथ।",
@@ -591,7 +597,7 @@ ja: {
   s2t:"短いフォームに入力", s2p:"短いフォームをお送りします。ビジネスの詳細と、ページのイメージ — スタイル、色、あなたにとって大切なことを教えてください。",
   s3t:"私たちが作成 — あなたが承認", s3p:"ページを作成し、プレビューをお送りします。あなたのOKなしに完成にはなりませんし、ご希望の調整も行います。",
   s4t:"ページ公開", s4p:"リンクをSNS、レシート、お店の窓など、どこでも共有してください。小さな更新やファイルのコピーはいつでもお気軽にどうぞ。",
-  work_h:"制作実績", work_sub:"私たちは <strong>日本 🇯🇵</strong> と <strong>イギリス 🇬🇧</strong> のお客様のウェブサイトを作成しました — 実際に公開中の、本物の仕事です。ぜひご覧ください。",
+  work_h:"制作実績", work_sub:"私たちは <strong>日本</strong> と <strong>イギリス</strong> のお客様のウェブサイトを作成しました — 実際に公開中の、本物の仕事です。ぜひご覧ください。",
   skie_t:"Skie — 無料のお天気バディアプリ", skie_p:"Skieは毎朝天気をチェックし、傘やセーター、水など、その日に必要なものを教えてくれます。Skieのウェブサイトとアプリのダウンロードページは、私たちがあなたに提供するのと同じ無料ツールで作りました。", skie_btn:"Skieのウェブサイトを見る",
   nikki_t:"Nikki Pascall Tuition — オードレム、イギリス", nikki_p:"チェシャー州オードレムの個人教師のための、温かく親しみやすい1ページウェブサイト。SATs、GCSE、11+の指導に加え、フルートとピアノのレッスン、営業時間、「Book / Enquire」の電話・メールボタンを掲載。", work_btn:"ウェブサイトを見る",
   kamb_t:"かんばら・にほんごの会 あゆみ — 蒲原、日本", kamb_p:"静岡県蒲原のボランティア日本語グループのウェブサイト。5か国語に完全対応し、詳しいレッスンガイド、イベント、学習アプリのセクションを掲載。",
